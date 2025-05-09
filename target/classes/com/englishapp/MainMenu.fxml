@@ -6,7 +6,8 @@
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.englishapp.MainMenuController"
-      alignment="CENTER" spacing="15">
+      alignment="CENTER" spacing="15"
+      stylesheets="@stylesMainMenu.css">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
