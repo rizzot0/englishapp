@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.englishapp.TypingGameController"
+      alignment="CENTER" spacing="15">
+    <Label text="Typing Game (a implementar)"/>
+</VBox>
