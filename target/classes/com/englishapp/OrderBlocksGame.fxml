@@ -4,16 +4,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.englishapp.OrderBlocksGameController"
-            prefWidth="400" prefHeight="500">
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.englishapp.OrderBlocksGameController"
+            prefWidth="400" prefHeight="500"
+            stylesheets="@stylesOrderGame.css">
 
     <center>
-        <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
-            <content>
-                <VBox fx:id="container" alignment="TOP_CENTER" spacing="10" prefHeight="400" />
-            </content>
-        </ScrollPane>
-    </center>
+    <ScrollPane fitToWidth="true" fitToHeight="true" BorderPane.alignment="CENTER">
+        <content>
+            <StackPane alignment="CENTER">
+                <VBox fx:id="container" alignment="CENTER" spacing="10" />
+            </StackPane>
+        </content>
+    </ScrollPane>
+</center>
+
 
     <bottom>
         <HBox alignment="CENTER" spacing="20" BorderPane.alignment="CENTER">
