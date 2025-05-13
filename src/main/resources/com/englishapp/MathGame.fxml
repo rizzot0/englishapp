@@ -5,5 +5,5 @@
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.englishapp.MathGameController"
       alignment="CENTER" spacing="15">
-    <Label text="Math game"/>
+    <Label text="Math"/>
 </VBox>

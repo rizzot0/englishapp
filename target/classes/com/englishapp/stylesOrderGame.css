@@ -1,0 +1,18 @@
+.root {
+    -fx-background-color: #f0f8ff;
+}
+
+.button {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 16px;
+    -fx-background-color: #7FDFFF;
+    -fx-text-fill: white;
+    -fx-background-radius: 15;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-max-width: 300;
+}
+
+.button:hover {
+    -fx-background-color: #00bfff;
+}
