@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.englishapp.TypingGameController"
-      alignment="CENTER" spacing="15">
-    <Label text="Typing Game (a implementar)"/>
-</VBox>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.englishapp.TypingGameController"
+            prefWidth="600" prefHeight="500">
+
+    <top>
+        <Label fx:id="timerLabel" text="Time: 60"
+               BorderPane.alignment="CENTER"
+               style="-fx-font-size: 18px; -fx-padding: 10px;"/>
+    </top>
+
+    <center>
+        <VBox fx:id="gameArea" spacing="20" alignment="CENTER"
+              BorderPane.alignment="CENTER">
+            <ImageView fx:id="imageView" fitHeight="200" preserveRatio="true"/>
+            <Label fx:id="progressLabel" text="Typing..."
+                   style="-fx-font-size: 24px;"/>
+        </VBox>
+    </center>
+
+</BorderPane>
