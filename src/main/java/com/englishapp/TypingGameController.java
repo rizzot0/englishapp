@@ -1,8 +1,8 @@
 package com.englishapp;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,22 +17,46 @@ public class TypingGameController {
     @FXML private ImageView imageView;
     @FXML private Label progressLabel;
     @FXML private Label timerLabel;
-    @FXML private VBox gameArea;  
+    @FXML private VBox gameArea;
+    @FXML private Button restartButton;
 
-    private List<String> words = List.of("banana", "apple", "grape", "orange", "kiwi");
+
+    private final List<String> words = List.of(
+    "banana", "apple", "grape", "orange", "kiwi",
+    "pear", "lemon", "mango", "peach", "cherry", "pineapple"
+)
+;
     private int wordIndex = 0;
     private String currentWord;
     private int currentCharIndex = 0;
-    private Timeline timer;
+    private Timeline timer;     
     private int timeLeft = 60;
+
+    private int score = 0;
+    private Label scoreLabel = new Label("Puntaje: 0");
 
     @FXML
     public void initialize() {
         gameArea.setOnKeyPressed(this::handleKeyPress);
         gameArea.setFocusTraversable(true);
+
+        gameArea.getChildren().add(scoreLabel);  // Mostrar puntaje
+
         loadWord();
         startTimer();
     }
+
+    @FXML
+    private void restartGame() {
+        timeLeft = 120;
+        score = 0;
+        scoreLabel.setText("Puntaje: 0");
+        wordIndex = 0;
+        restartButton.setVisible(false);
+        loadWord();
+        startTimer();
+    }
+
 
     private void loadWord() {
         currentWord = words.get(wordIndex);
@@ -60,6 +84,10 @@ public class TypingGameController {
         if (pressed.length() == 1 && pressed.charAt(0) == currentWord.charAt(currentCharIndex)) {
             currentCharIndex++;
             if (currentCharIndex == currentWord.length()) {
+                score++;  // Aumentar puntaje
+                scoreLabel.setText("Puntaje: " + score);
+                playSuccessAnimation(progressLabel);
+
                 wordIndex = (wordIndex + 1) % words.size();
                 loadWord();
             } else {
@@ -71,13 +99,39 @@ public class TypingGameController {
     private void startTimer() {
         timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             timeLeft--;
-            timerLabel.setText("Time: " + timeLeft);
+            timerLabel.setText("Tiempo: " + timeLeft);
             if (timeLeft <= 0) {
                 timer.stop();
-                progressLabel.setText("Time's up!");
+                progressLabel.setText("¡Tiempo agotado!");
+                restartButton.setVisible(true);
+                playBounceAnimation(restartButton);
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
+
+    private void playSuccessAnimation(Label label) {
+        ScaleTransition scale = new ScaleTransition(Duration.millis(200), label);
+        scale.setFromX(1);
+        scale.setToX(1.4);
+        scale.setFromY(1);
+        scale.setToY(1.4);
+        scale.setAutoReverse(true);
+        scale.setCycleCount(2);
+        scale.play();
+    }
+
+    private void playBounceAnimation(Button button) {
+    ScaleTransition bounce = new ScaleTransition(Duration.millis(300), button);
+    bounce.setFromX(0);
+    bounce.setToX(1);
+    bounce.setFromY(0);
+    bounce.setToY(1);
+    bounce.setInterpolator(Interpolator.EASE_OUT);
+    bounce.play();
 }
+}
+
+
+
