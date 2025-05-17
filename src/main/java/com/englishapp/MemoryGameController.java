@@ -3,6 +3,7 @@ package com.englishapp;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,8 @@ public class MemoryGameController {
 
     @FXML private GridPane cardGrid;
     @FXML private Label scoreLabel;
+    @FXML private Button restartButton;
+
 
     private final List<String> items = List.of("cat", "dog", "apple", "fish");
 
@@ -76,6 +79,8 @@ public class MemoryGameController {
             }
         }
 
+        
+
         private Image loadImage(String name) {
             String[] extensions = { ".png", ".jpg", ".jpeg" };
             for (String ext : extensions) {
@@ -98,9 +103,16 @@ public class MemoryGameController {
     public void initialize() {
         generateBoard();
     }
+    @FXML
+    private void restartGame() {
+        generateBoard();
+    }
+
 
     private void generateBoard() {
         List<Card> cards = new ArrayList<>();
+        restartButton.setVisible(false);
+
 
         for (String item : items) {
             cards.add(new Card(item, true));
@@ -152,6 +164,7 @@ public class MemoryGameController {
                     alert.setHeaderText(null);
                     alert.setContentText("¡Felicidades! Has emparejado todas las cartas.");
                     alert.showAndWait();
+                    restartButton.setVisible(true);
                 }
             } else {
                 PauseTransition pause = new PauseTransition(Duration.seconds(1));
