@@ -16,12 +16,13 @@
     </top>
 
     <center>
-        <VBox fx:id="gameArea" spacing="20" alignment="CENTER"
-              BorderPane.alignment="CENTER">
-            <ImageView fx:id="imageView" fitHeight="200" preserveRatio="true"/>
-            <Label fx:id="progressLabel" text="Typing..."
-                   style="-fx-font-size: 24px;"/>
-        </VBox>
+    <VBox fx:id="gameArea" spacing="20" alignment="CENTER"
+          BorderPane.alignment="CENTER">
+        <ImageView fx:id="imageView" fitHeight="200" preserveRatio="true"/>
+        <Label fx:id="progressLabel" text="Typing..." style="-fx-font-size: 24px;"/>
+        <Button fx:id="restartButton" text="🔁 Reiniciar" visible="false" onAction="#restartGame" />
+    </VBox>
     </center>
+
 
 </BorderPane>
