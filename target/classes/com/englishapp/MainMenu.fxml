@@ -15,7 +15,7 @@
 
     <Button text="🗓️ Ordenar los días de la semana" onAction="#openOrderBlocksGame" prefWidth="300"/>
     <Button text="⌨️ Batalla de tipeo" onAction="#openTypingGame" prefWidth="300"/>
-    <Button text="🔤 Juego de deletreo" onAction="#openSpellingGame" prefWidth="300"/>
+    <Button text="🧠 Juego de memoria" onAction="#openMemoryGame" prefWidth="300"/>
     <Button text="➕ Juego de matemáticas" onAction="#openMathGame" prefWidth="300"/>
 
 </VBox>

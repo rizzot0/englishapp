@@ -21,8 +21,8 @@ public class MainMenuController {
     }
 
     @FXML
-    private void openSpellingGame() throws IOException {
-        loadScene("SpellingGame.fxml", "Deletreo");
+    private void openMemoryGame() throws IOException {
+        loadScene("MemoryGame.fxml", "Juego de memoria");
     }
 
     @FXML
