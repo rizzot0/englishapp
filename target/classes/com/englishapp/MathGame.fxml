@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.englishapp.MathGameController"
       spacing="20" alignment="CENTER"
-      style="-fx-padding: 30; -fx-background-color: #f0f8ff;">
+      style="-fx-padding: 30; -fx-background-color: #f0f8ff;"
+      prefWidth="480" prefHeight="400">
 
+    <Label fx:id="timerLabel" text="Time: 60" style="-fx-font-size: 16px;" />
     <Label fx:id="scoreLabel" text="Score: 0" style="-fx-font-size: 16px;" />
     <Label fx:id="operationLabel" text="Operation" style="-fx-font-size: 24px;" />
     <HBox fx:id="optionsBox" spacing="15" alignment="CENTER"/>
+    <Label fx:id="feedbackLabel" text="" style="-fx-font-size: 18px;"/>
+    <Button fx:id="restartButton" text="Restart" onAction="#restartGame" visible="false"
+            style="-fx-background-radius: 10; -fx-font-size: 14px;" />
 
 </VBox>

@@ -1,11 +1,13 @@
 package com.englishapp;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -15,8 +17,13 @@ public class MathGameController {
     @FXML private Label operationLabel;
     @FXML private HBox optionsBox;
     @FXML private Label scoreLabel;
+    @FXML private Label timerLabel;
+    @FXML private Label feedbackLabel;
+    @FXML private Button restartButton;
 
     private int score = 0;
+    private int timeLeft = 60;
+    private Timeline timeline;
 
     private final Map<Integer, String> numberWords = Map.ofEntries(
         Map.entry(0, "zero"), Map.entry(1, "one"), Map.entry(2, "two"),
@@ -32,8 +39,18 @@ public class MathGameController {
 
     @FXML
     public void initialize() {
+        restartButton.setVisible(false);
+        resetGame();
+    }
+
+    private void resetGame() {
         score = 0;
+        timeLeft = 60;
         updateScore();
+        updateTimerLabel();
+        feedbackLabel.setText("");
+        restartButton.setVisible(false);
+        startTimer();
         generateNewOperation();
     }
 
@@ -41,22 +58,55 @@ public class MathGameController {
         scoreLabel.setText("Score: " + score);
     }
 
+    private void updateTimerLabel() {
+        timerLabel.setText("Time: " + timeLeft);
+    }
+
+    private void startTimer() {
+        if (timeline != null) timeline.stop();
+
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            timeLeft--;
+            updateTimerLabel();
+            if (timeLeft <= 0) {
+                timeline.stop();
+                showGameOver();
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    private void showGameOver() {
+        operationLabel.setText("Time's up!");
+        optionsBox.getChildren().clear();
+        feedbackLabel.setText("Final Score: " + score);
+        feedbackLabel.setTextFill(Color.DARKBLUE);
+        restartButton.setVisible(true);
+    }
+
     private void generateNewOperation() {
         optionsBox.getChildren().clear();
         Random rand = new Random();
-        int a = rand.nextInt(11);
-        int b = rand.nextInt(11);
+        int a, b;
         boolean isAddition = rand.nextBoolean();
-        correctAnswer = isAddition ? a + b : a - b;
-        correctAnswer = Math.max(0, correctAnswer);
+
+        if (isAddition) {
+            a = rand.nextInt(11);
+            b = rand.nextInt(11);
+            correctAnswer = a + b;
+        } else {
+            a = rand.nextInt(11);
+            b = rand.nextInt(a + 1);
+            correctAnswer = a - b;
+        }
 
         operationLabel.setText(a + (isAddition ? " + " : " - ") + b + " = ?");
-
         Set<Integer> options = new HashSet<>();
         options.add(correctAnswer);
         while (options.size() < 3) {
             int fake = rand.nextInt(21);
-            options.add(fake);
+            if (fake != correctAnswer) options.add(fake);
         }
 
         List<Integer> shuffled = new ArrayList<>(options);
@@ -64,6 +114,7 @@ public class MathGameController {
 
         for (int opt : shuffled) {
             Button btn = new Button(numberWords.get(opt));
+            btn.setPrefWidth(100);
             btn.setOnAction(e -> checkAnswer(opt));
             btn.setStyle("-fx-font-size: 18px; -fx-background-radius: 10;");
             optionsBox.getChildren().add(btn);
@@ -73,19 +124,27 @@ public class MathGameController {
     }
 
     private void checkAnswer(int chosen) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         if (chosen == correctAnswer) {
-            alert.setTitle("Correct!");
-            alert.setContentText("Well done! That's the correct answer.");
             score++;
             updateScore();
+            feedbackLabel.setText("Correct!");
+            feedbackLabel.setTextFill(Color.FORESTGREEN);
         } else {
-            alert.setTitle("Oops!");
-            alert.setContentText("That's not quite right. Try again next time!");
+            feedbackLabel.setText("Incorrect!");
+            feedbackLabel.setTextFill(Color.CRIMSON);
         }
 
-        alert.setOnHidden(e -> generateNewOperation());
-        alert.show();
+        FadeTransition fade = new FadeTransition(Duration.millis(500), feedbackLabel);
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.play();
+
+        // Generar nueva operación tras pequeña pausa
+        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.8), e -> {
+            feedbackLabel.setText("");
+            generateNewOperation();
+        }));
+        delay.play();
     }
 
     private void playFadeIn() {
@@ -93,5 +152,10 @@ public class MathGameController {
         fade.setFromValue(0);
         fade.setToValue(1);
         fade.play();
+    }
+
+    @FXML
+    private void restartGame() {
+        resetGame();
     }
 }
