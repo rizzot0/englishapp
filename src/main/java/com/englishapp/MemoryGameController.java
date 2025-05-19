@@ -1,7 +1,9 @@
 package com.englishapp;
 
 import javafx.animation.PauseTransition;
+import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Point3D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,9 +50,20 @@ public class MemoryGameController {
             return view;
         }
 
-        void reveal() {
-            if (revealed || matched) return;
+    void reveal() {
+        if (revealed || matched) return;
 
+        RotateTransition firstHalf = new RotateTransition(Duration.millis(150), view);
+        firstHalf.setFromAngle(0);
+        firstHalf.setToAngle(90);
+        firstHalf.setAxis(new Point3D(0, 1, 0));
+
+        RotateTransition secondHalf = new RotateTransition(Duration.millis(150), view);
+        secondHalf.setFromAngle(-90); // ← empieza desde -90
+        secondHalf.setToAngle(0);     // ← termina en 0
+        secondHalf.setAxis(new Point3D(0, 1, 0));
+
+        firstHalf.setOnFinished(e -> {
             view.getChildren().clear();
             if (isImage) {
                 Image img = loadImage(name);
@@ -69,15 +82,31 @@ public class MemoryGameController {
                 lbl.setStyle("-fx-font-size: 18px;");
                 view.getChildren().add(lbl);
             }
+            secondHalf.play();
             revealed = true;
-        }
+        });
 
-        void hide() {
-            if (!matched && view != null) {
+        firstHalf.play();
+    }
+
+
+
+    void hide() {
+        if (!matched && view != null) {
+            RotateTransition hideFlip = new RotateTransition(Duration.millis(300), view);
+            hideFlip.setFromAngle(180);
+            hideFlip.setToAngle(0);
+            hideFlip.setAxis(javafx.geometry.Point3D.ZERO.add(0, 1, 0));
+
+            hideFlip.setOnFinished(e -> {
                 view.getChildren().clear();
                 revealed = false;
-            }
+            });
+
+            hideFlip.play();
         }
+    }
+
 
         
 
