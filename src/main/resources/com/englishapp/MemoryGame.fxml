@@ -8,7 +8,8 @@
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.englishapp.MemoryGameController"
       spacing="10" alignment="CENTER"
-      style="-fx-padding: 20; -fx-background-color: #f0f8ff;">
+      style="-fx-padding: 20; -fx-background-color: #f0f8ff;"
+      stylesheets="@style.css">
 
     <Label fx:id="scoreLabel" text="Puntaje: 0" style="-fx-font-size: 18px;" />
 
