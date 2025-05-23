@@ -9,6 +9,7 @@
       fx:controller="com.englishapp.MemoryGameController"
       spacing="10"
       alignment="CENTER"
+      prefWidth="700" prefHeight="700"
       stylesheets="@style.css"
       styleClass="memory-game-root">
 
