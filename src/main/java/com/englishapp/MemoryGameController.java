@@ -41,7 +41,7 @@ public class MemoryGameController {
 
         StackPane createView() {
             view = new StackPane();
-            view.setPrefSize(100, 100);
+            view.setPrefSize(150, 150); // tamaño aumentado
             view.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
             view.setOnMouseClicked(e -> handleCardClick(this));
             return view;
@@ -71,8 +71,8 @@ public class MemoryGameController {
                     Image img = loadImage(name);
                     if (img != null) {
                         ImageView imageView = new ImageView(img);
-                        imageView.setFitWidth(60);
-                        imageView.setFitHeight(60);
+                        imageView.setFitWidth(100);
+                        imageView.setFitHeight(100);
                         imageView.setPreserveRatio(true);
                         imageView.setSmooth(true);
                         view.getChildren().add(imageView);
@@ -212,12 +212,14 @@ public class MemoryGameController {
                 shake1.setToX(5);
                 shake1.setCycleCount(4);
                 shake1.setAutoReverse(true);
+                shake1.setOnFinished(e -> first.view.setTranslateX(0));
 
                 TranslateTransition shake2 = new TranslateTransition(Duration.millis(100), second.view);
                 shake2.setFromX(5);
                 shake2.setToX(-5);
                 shake2.setCycleCount(4);
                 shake2.setAutoReverse(true);
+                shake2.setOnFinished(e -> second.view.setTranslateX(0));
 
                 shake1.play();
                 shake2.play();
