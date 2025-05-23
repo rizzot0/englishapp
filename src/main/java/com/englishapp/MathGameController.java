@@ -1,8 +1,6 @@
 package com.englishapp;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -115,15 +113,15 @@ public class MathGameController {
         for (int opt : shuffled) {
             Button btn = new Button(numberWords.get(opt));
             btn.setPrefWidth(100);
-            btn.setOnAction(e -> checkAnswer(opt));
-            btn.setStyle("-fx-font-size: 18px; -fx-background-radius: 10;");
+            btn.getStyleClass().add("button");
+            btn.setOnAction(e -> checkAnswer(opt, btn));
             optionsBox.getChildren().add(btn);
         }
 
         playFadeIn();
     }
 
-    private void checkAnswer(int chosen) {
+    private void checkAnswer(int chosen, Button btn) {
         if (chosen == correctAnswer) {
             score++;
             updateScore();
@@ -134,12 +132,18 @@ public class MathGameController {
             feedbackLabel.setTextFill(Color.CRIMSON);
         }
 
+        ScaleTransition scale = new ScaleTransition(Duration.millis(200), btn);
+        scale.setToX(1.2);
+        scale.setToY(1.2);
+        scale.setCycleCount(2);
+        scale.setAutoReverse(true);
+        scale.play();
+
         FadeTransition fade = new FadeTransition(Duration.millis(500), feedbackLabel);
         fade.setFromValue(0);
         fade.setToValue(1);
         fade.play();
 
-        // Generar nueva operación tras pequeña pausa
         Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.8), e -> {
             feedbackLabel.setText("");
             generateNewOperation();

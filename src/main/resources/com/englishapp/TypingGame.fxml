@@ -8,22 +8,28 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.englishapp.TypingGameController"
             prefWidth="600" prefHeight="500"
-            stylesheets="@style.css">
+            stylesheets="@style.css"
+            styleClass="typing-game-root">
 
     <top>
-        <Label fx:id="timerLabel" text="Time: 60"
+        <Label fx:id="timerLabel"
+               text="Time: 60"
                BorderPane.alignment="CENTER"
-               style="-fx-font-size: 18px; -fx-padding: 10px;"/>
+               styleClass="timer-label"/>
     </top>
 
     <center>
-    <VBox fx:id="gameArea" spacing="20" alignment="CENTER"
-          BorderPane.alignment="CENTER">
-        <ImageView fx:id="imageView" fitHeight="200" preserveRatio="true"/>
-        <Label fx:id="progressLabel" text="Typing..." style="-fx-font-size: 24px;"/>
-        <Button fx:id="restartButton" text="🔁 Reiniciar" visible="false" onAction="#restartGame" />
-    </VBox>
+        <VBox fx:id="gameArea"
+            spacing="20"
+            alignment="CENTER"
+            BorderPane.alignment="CENTER"
+            styleClass="typing-container">
+            
+            <Label fx:id="scoreLabel" text="Puntaje: 0" styleClass="score-label"/>
+            <ImageView fx:id="imageView" fitHeight="200" preserveRatio="true"/>
+            <Label fx:id="progressLabel" text="Typing..." styleClass="progress-label"/>
+            <Button fx:id="restartButton" text="🔁 Reiniciar" visible="false" onAction="#restartGame" styleClass="button"/>
+        </VBox>
     </center>
-
 
 </BorderPane>
