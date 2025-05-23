@@ -1,7 +1,6 @@
 package com.englishapp;
 
-import javafx.animation.PauseTransition;
-import javafx.animation.RotateTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Point3D;
 import javafx.scene.control.Alert;
@@ -22,9 +21,7 @@ public class MemoryGameController {
     @FXML private Label scoreLabel;
     @FXML private Button restartButton;
 
-
     private final List<String> items = List.of("cat", "dog", "apple", "fish");
-
     private final List<Card> selectedCards = new ArrayList<>();
     private boolean lockBoard = false;
     private int score = 0;
@@ -50,65 +47,65 @@ public class MemoryGameController {
             return view;
         }
 
-    void reveal() {
-        if (revealed || matched) return;
+        void reveal() {
+            if (revealed || matched) return;
 
-        RotateTransition firstHalf = new RotateTransition(Duration.millis(150), view);
-        firstHalf.setFromAngle(0);
-        firstHalf.setToAngle(90);
-        firstHalf.setAxis(new Point3D(0, 1, 0));
+            FadeTransition fade = new FadeTransition(Duration.millis(200), view);
+            fade.setFromValue(0.0);
+            fade.setToValue(1.0);
+            fade.play();
 
-        RotateTransition secondHalf = new RotateTransition(Duration.millis(150), view);
-        secondHalf.setFromAngle(-90); // ← empieza desde -90
-        secondHalf.setToAngle(0);     // ← termina en 0
-        secondHalf.setAxis(new Point3D(0, 1, 0));
+            RotateTransition firstHalf = new RotateTransition(Duration.millis(150), view);
+            firstHalf.setFromAngle(0);
+            firstHalf.setToAngle(90);
+            firstHalf.setAxis(new Point3D(0, 1, 0));
 
-        firstHalf.setOnFinished(e -> {
-            view.getChildren().clear();
-            if (isImage) {
-                Image img = loadImage(name);
-                if (img != null) {
-                    ImageView imageView = new ImageView(img);
-                    imageView.setFitWidth(60);
-                    imageView.setFitHeight(60);
-                    imageView.setPreserveRatio(true);
-                    imageView.setSmooth(true);
-                    view.getChildren().add(imageView);
-                } else {
-                    view.getChildren().add(new Label("❌"));
-                }
-            } else {
-                Label lbl = new Label(name);
-                lbl.setStyle("-fx-font-size: 18px;");
-                view.getChildren().add(lbl);
-            }
-            secondHalf.play();
-            revealed = true;
-        });
+            RotateTransition secondHalf = new RotateTransition(Duration.millis(150), view);
+            secondHalf.setFromAngle(-90);
+            secondHalf.setToAngle(0);
+            secondHalf.setAxis(new Point3D(0, 1, 0));
 
-        firstHalf.play();
-    }
-
-
-
-    void hide() {
-        if (!matched && view != null) {
-            RotateTransition hideFlip = new RotateTransition(Duration.millis(300), view);
-            hideFlip.setFromAngle(180);
-            hideFlip.setToAngle(0);
-            hideFlip.setAxis(javafx.geometry.Point3D.ZERO.add(0, 1, 0));
-
-            hideFlip.setOnFinished(e -> {
+            firstHalf.setOnFinished(e -> {
                 view.getChildren().clear();
-                revealed = false;
+                if (isImage) {
+                    Image img = loadImage(name);
+                    if (img != null) {
+                        ImageView imageView = new ImageView(img);
+                        imageView.setFitWidth(60);
+                        imageView.setFitHeight(60);
+                        imageView.setPreserveRatio(true);
+                        imageView.setSmooth(true);
+                        view.getChildren().add(imageView);
+                    } else {
+                        view.getChildren().add(new Label("❌"));
+                    }
+                } else {
+                    Label lbl = new Label(name);
+                    lbl.setStyle("-fx-font-size: 18px;");
+                    view.getChildren().add(lbl);
+                }
+                secondHalf.play();
+                revealed = true;
             });
 
-            hideFlip.play();
+            firstHalf.play();
         }
-    }
 
+        void hide() {
+            if (!matched && view != null) {
+                RotateTransition hideFlip = new RotateTransition(Duration.millis(300), view);
+                hideFlip.setFromAngle(180);
+                hideFlip.setToAngle(0);
+                hideFlip.setAxis(javafx.geometry.Point3D.ZERO.add(0, 1, 0));
 
-        
+                hideFlip.setOnFinished(e -> {
+                    view.getChildren().clear();
+                    revealed = false;
+                });
+
+                hideFlip.play();
+            }
+        }
 
         private Image loadImage(String name) {
             String[] extensions = { ".png", ".jpg", ".jpeg" };
@@ -137,11 +134,9 @@ public class MemoryGameController {
         generateBoard();
     }
 
-
     private void generateBoard() {
         List<Card> cards = new ArrayList<>();
         restartButton.setVisible(false);
-
 
         for (String item : items) {
             cards.add(new Card(item, true));
@@ -184,6 +179,22 @@ public class MemoryGameController {
                 second.setMatched(true);
                 score++;
                 scoreLabel.setText("Puntaje: " + score);
+
+                ScaleTransition scale1 = new ScaleTransition(Duration.millis(200), first.view);
+                scale1.setToX(1.2);
+                scale1.setToY(1.2);
+                scale1.setCycleCount(2);
+                scale1.setAutoReverse(true);
+
+                ScaleTransition scale2 = new ScaleTransition(Duration.millis(200), second.view);
+                scale2.setToX(1.2);
+                scale2.setToY(1.2);
+                scale2.setCycleCount(2);
+                scale2.setAutoReverse(true);
+
+                scale1.play();
+                scale2.play();
+
                 selectedCards.clear();
                 lockBoard = false;
 
@@ -196,6 +207,21 @@ public class MemoryGameController {
                     restartButton.setVisible(true);
                 }
             } else {
+                TranslateTransition shake1 = new TranslateTransition(Duration.millis(100), first.view);
+                shake1.setFromX(-5);
+                shake1.setToX(5);
+                shake1.setCycleCount(4);
+                shake1.setAutoReverse(true);
+
+                TranslateTransition shake2 = new TranslateTransition(Duration.millis(100), second.view);
+                shake2.setFromX(5);
+                shake2.setToX(-5);
+                shake2.setCycleCount(4);
+                shake2.setAutoReverse(true);
+
+                shake1.play();
+                shake2.play();
+
                 PauseTransition pause = new PauseTransition(Duration.seconds(1));
                 pause.setOnFinished(e -> {
                     first.hide();
@@ -208,4 +234,3 @@ public class MemoryGameController {
         }
     }
 }
-    

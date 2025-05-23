@@ -7,19 +7,21 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.englishapp.MemoryGameController"
-      spacing="10" alignment="CENTER"
-      style="-fx-padding: 20; -fx-background-color: #f0f8ff;"
-      stylesheets="@style.css">
+      spacing="10"
+      alignment="CENTER"
+      stylesheets="@style.css"
+      styleClass="memory-game-root">
 
-    <Label fx:id="scoreLabel" text="Puntaje: 0" style="-fx-font-size: 18px;" />
+    <Label fx:id="scoreLabel" text="Puntaje: 0" styleClass="score-label"/>
 
     <GridPane fx:id="cardGrid"
               hgap="10" vgap="10"
-              alignment="CENTER" />
+              alignment="CENTER"
+              styleClass="memory-grid"/>
 
     <Button fx:id="restartButton"
             text="Reiniciar juego"
             onAction="#restartGame"
-            style="-fx-font-size: 14px;"
-            visible="false"/>
+            visible="false"
+            styleClass="button"/>
 </VBox>

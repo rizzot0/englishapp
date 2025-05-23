@@ -1,4 +1,6 @@
-
+/* -------------------------------------------------- */
+/* 🟢 ESTILOS GENERALES                              */
+/* -------------------------------------------------- */
 .root {
     -fx-background-color: #FDFCDC;
     -fx-font-family: "Comic Sans MS", "Segoe UI", sans-serif;
@@ -20,7 +22,6 @@
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
 }
-
 .button:hover {
     -fx-background-color: #0081A7;
 }
@@ -29,6 +30,25 @@
     -fx-font-size: 26px;
     -fx-text-fill: #F07167;
     -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #0081A7;
+    -fx-border-radius: 10;
+    -fx-font-size: 14px;
+}
+
+/* -------------------------------------------------- */
+/* 🧠 JUEGO DE MEMORIA                               */
+/* -------------------------------------------------- */
+.memory-game-root {
+    -fx-padding: 20;
+}
+
+.memory-grid {
+    -fx-alignment: center;
 }
 
 .memory-tile {
@@ -47,10 +67,99 @@
     -fx-background-color: #00AFB9;
 }
 
-.text-field {
-    -fx-background-color: white;
-    -fx-background-radius: 10;
-    -fx-border-color: #0081A7;
-    -fx-border-radius: 10;
-    -fx-font-size: 14px;
+.memory-game-root .score-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #0081A7;
+    -fx-font-weight: bold;
+}
+
+/* -------------------------------------------------- */
+/* ➕ JUEGO DE MATEMÁTICAS                            */
+/* -------------------------------------------------- */
+.math-game-root {
+    -fx-padding: 30;
+}
+
+.timer-label, .math-game-root .score-label {
+    -fx-font-size: 16px;
+}
+
+.operation-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #0081A7;
+    -fx-font-weight: bold;
+}
+
+.feedback-label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #F07167;
+}
+
+.options-box {
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+/* -------------------------------------------------- */
+/* 📅 JUEGO ORDENAR DÍAS                              */
+/* -------------------------------------------------- */
+.order-game-root {
+    -fx-background-color: #FDFCDC;
+    -fx-padding: 20;
+}
+
+.day-container {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+.order-button-bar {
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+.day-button {
+    -fx-font-size: 18px;
+    -fx-background-color: #FED9B7;
+    -fx-border-color: #F07167;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+.day-button:hover {
+    -fx-background-color: #00AFB9;
+    -fx-text-fill: white;
+}
+
+/* -------------------------------------------------- */
+/* ⌨️ JUEGO DE TIPEO                                  */
+/* -------------------------------------------------- */
+.typing-game-root {
+    -fx-background-color: #FDFCDC;
+    -fx-padding: 20;
+}
+
+.typing-container {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+.typing-container .score-label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #0081A7;
+    -fx-font-weight: bold;
+}
+
+.timer-label {
+    -fx-font-size: 18px;
+    -fx-padding: 10px;
+    -fx-text-fill: #0081A7;
+}
+
+.progress-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #F07167;
+    -fx-font-weight: bold;
 }

@@ -20,6 +20,7 @@ public class TypingGameController {
     @FXML private Label timerLabel;
     @FXML private VBox gameArea;
     @FXML private Button restartButton;
+    @FXML private Label scoreLabel;
 
     private final List<String> baseWords = List.of(
         "banana", "apple", "grape", "orange", "kiwi",
@@ -34,19 +35,18 @@ public class TypingGameController {
     private int timeLeft;
 
     private int score = 0;
-    private Label scoreLabel = new Label("Puntaje: 0");
 
     @FXML
     public void initialize() {
         gameArea.setOnKeyPressed(this::handleKeyPress);
         gameArea.setFocusTraversable(true);
-        gameArea.getChildren().add(scoreLabel);
 
+        scoreLabel.getStyleClass().add("score-label");
         resetGame();
     }
 
     private void resetGame() {
-        if (timer != null) timer.stop();  // 🛑 Detener timer previo
+        if (timer != null) timer.stop();
 
         words = new java.util.ArrayList<>(baseWords);
         Collections.shuffle(words);
@@ -65,7 +65,7 @@ public class TypingGameController {
 
     @FXML
     private void restartGame() {
-        resetGame(); // Reutilizamos misma lógica
+        resetGame();
     }
 
     private void loadWord() {
@@ -76,6 +76,11 @@ public class TypingGameController {
         imageView.setImage(
             new Image(getClass().getResource("/com/englishapp/images/" + currentWord + ".png").toString())
         );
+
+        FadeTransition fade = new FadeTransition(Duration.millis(400), imageView);
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.play();
     }
 
     private void updateProgressLabel() {
@@ -110,7 +115,7 @@ public class TypingGameController {
     }
 
     private void startTimer() {
-        if (timer != null) timer.stop(); // detener anterior
+        if (timer != null) timer.stop();
 
         timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             timeLeft--;

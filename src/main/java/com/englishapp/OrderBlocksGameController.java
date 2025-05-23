@@ -1,5 +1,6 @@
 package com.englishapp;
 
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +28,7 @@ public class OrderBlocksGameController {
     }
 
     private void loadShuffledDays() {
-        container.getChildren().clear(); // prevenir duplicados
+        container.getChildren().clear();
         List<String> shuffledDays = new ArrayList<>(correctOrder);
         Collections.shuffle(shuffledDays);
 
@@ -40,8 +42,16 @@ public class OrderBlocksGameController {
         Button button = new Button(text);
         button.setFont(new Font(18));
         button.setMaxWidth(Double.MAX_VALUE);
+        button.getStyleClass().add("day-button");
 
         button.setOnDragDetected(e -> {
+            ScaleTransition scale = new ScaleTransition(Duration.millis(150), button);
+            scale.setToX(1.1);
+            scale.setToY(1.1);
+            scale.setCycleCount(2);
+            scale.setAutoReverse(true);
+            scale.play();
+
             Dragboard db = button.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
             content.putString(button.getText());
@@ -75,16 +85,6 @@ public class OrderBlocksGameController {
             e.consume();
         });
 
-        button.setOnDragEntered(e -> {
-            if (e.getGestureSource() != button) {
-                button.setStyle("-fx-background-color: lightblue;");
-            }
-        });
-
-        button.setOnDragExited(e -> {
-            button.setStyle("");
-        });
-
         return button;
     }
 
@@ -92,12 +92,11 @@ public class OrderBlocksGameController {
     private void checkOrder() {
         List<String> currentOrder = new ArrayList<>();
         for (var node : container.getChildren()) {
-    if (node instanceof Button) {
-        Button btn = (Button) node;
-        currentOrder.add(btn.getText());
-    }
-}
-
+            if (node instanceof Button) {
+                Button btn = (Button) node;
+                currentOrder.add(btn.getText());
+            }
+        }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         if (currentOrder.equals(correctOrder)) {
