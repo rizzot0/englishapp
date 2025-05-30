@@ -1,0 +1,37 @@
+# Compilación y dependencias
+/target/
+/EnglishAppPortable/
+/*.jar
+/*.exe
+
+# Archivos de construcción Maven
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# Configuraciones de Eclipse/IntelliJ/VS Code
+.classpath
+.project
+.settings/
+/.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Archivos temporales de jpackage o snapshot
+*.deb
+*.rpm
+*.msi
+*.zip
+
+# Archivos creados por JavaFX
+hs_err_pid*.log
