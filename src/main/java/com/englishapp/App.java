@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * JavaFX App
@@ -17,7 +18,16 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("MainMenu"), 640, 480); // ← aquí se inicia el menú
+        scene = new Scene(loadFXML("MainMenu"), 640, 480);
+
+        // Estilos CSS: ruta relativa al paquete com.englishapp
+        URL css = App.class.getResource("style.css");
+        if (css != null) {
+            scene.getStylesheets().add(css.toExternalForm());
+        } else {
+            System.err.println("❌ ERROR: No se encontró style.css");
+        }
+
         stage.setTitle("EnglishApp - Menú Principal");
         stage.setScene(scene);
         stage.show();

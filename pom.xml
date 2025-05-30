@@ -32,6 +32,17 @@
         </dependency>
     </dependencies>
     <build>
+    <resources>
+    <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+        <include>**/*.fxml</include>
+        <include>**/*.css</include>
+        <include>**/*.png</include>
+        <include>**/*.mp3</include>
+        </includes>
+    </resource>
+    </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -55,6 +66,19 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>com.englishapp.App</mainClass>
+                    </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>
