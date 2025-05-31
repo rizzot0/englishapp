@@ -1,3 +1,11 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+  "java.test.config": [
+    {
+      "name": "TestFX Config",
+      "vmArgs": [
+        "--add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"
+      ]
+    }
+  ],
+  "java.test.defaultConfig": "TestFX Config"
 }

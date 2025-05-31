@@ -60,6 +60,10 @@ public class MathGameController {
         timerLabel.setText("Time: " + timeLeft);
     }
 
+    public Button getRestartButton() {
+    return restartButton;
+    }
+
     private void startTimer() {
         if (timeline != null) timeline.stop();
 
@@ -162,4 +166,47 @@ public class MathGameController {
     private void restartGame() {
         resetGame();
     }
+    public int getScore() {
+    return score;
+    }
+
+    public void incrementScore() {
+        score++;
+    }
+
+    // Para probar checkAnswer sin animaciones ni FX
+    public void checkAnswerPublic(int chosen) {
+        if (chosen == correctAnswer) {
+            score++;
+        }
+    }
+
+        // SOLO PARA TESTING — no usar en producción
+    public void setCorrectAnswer(int correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    // Método solo para testing para exponer el valor correcto generado
+public int getCorrectAnswer() {
+    return correctAnswer;
+}
+
+// Método solo para testing que genera una operación sin UI ni animación
+public void generateTestOperation() {
+    Random rand = new Random();
+    int a, b;
+    boolean isAddition = rand.nextBoolean();
+
+    if (isAddition) {
+        a = rand.nextInt(11);
+        b = rand.nextInt(11);
+        correctAnswer = a + b;
+    } else {
+        a = rand.nextInt(11);
+        b = rand.nextInt(a + 1);
+        correctAnswer = a - b;
+    }
+}
+
+
 }

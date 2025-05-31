@@ -30,6 +30,33 @@
             <artifactId>fxgl</artifactId>
             <version>21.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- TestFX Core -->
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-core</artifactId>
+            <version>4.0.16-alpha</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- TestFX JUnit5 -->
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit5</artifactId>
+            <version>4.0.16-alpha</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Necesario si TestFX da errores con Monocle en Windows -->
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <version>jdk-11+26</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
     <resources>
@@ -78,6 +105,16 @@
                         <mainClass>com.englishapp.App</mainClass>
                     </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <argLine>
+                    --add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                    </argLine>
                 </configuration>
             </plugin>
         </plugins>
